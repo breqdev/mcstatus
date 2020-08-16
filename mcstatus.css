@@ -7,6 +7,13 @@
     border-radius: 5px;
 }
 
+.mc-status-header {
+    font-family: monospace;
+    font-size: 24px;
+    padding: 10px;
+    margin: 0;
+}
+
 .mc-description {
     white-space: pre;
     font-family: monospace;

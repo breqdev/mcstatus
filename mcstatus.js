@@ -1,8 +1,4 @@
 function mcStatus(parent, server) {
-    loadStatus(parent, server, handleStatus);
-}
-
-function loadStatus(parent, server, callback) {
     const apiEndpoint = "https://mc-status-relay.herokuapp.com/status?server="
 
     var xhr = new XMLHttpRequest();
@@ -10,7 +6,7 @@ function loadStatus(parent, server, callback) {
     xhr.onreadystatechange = function() {
         if (this.readyState == 4) {
             console.log(this.responseText);
-            callback(parent, {"status": this.status, "result": JSON.parse(this.responseText)});
+            mcHandleStatus(parent, server, this.status, JSON.parse(this.responseText));
         }
     };
 
@@ -112,12 +108,15 @@ function mcPlayersToHTML(playersRaw) {
     return root;
 }
 
-function handleStatus(parent, result) {
-    var code = result["status"];
-    var status = result["result"];
-
+function mcHandleStatus(parent, server, code, status) {
     var root = document.createElement("div");
     root.classList.add("mc-status-root");
+
+    // Server IP:
+    var header = document.createElement("h1");
+    header.classList.add("mc-status-header");
+    header.appendChild(document.createTextNode(server));
+    root.appendChild(header);
 
     // MOTD:
     var descriptionRaw = {"extra": [{
