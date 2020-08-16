@@ -11,9 +11,12 @@ CORS(app)
 @cross_origin()
 def status():
     if request.args.get("server"):
-        server = MinecraftServer.lookup(request.args["server"])
-        status = server.status().raw
-        return jsonify(status)
+        try:
+            server = MinecraftServer.lookup(request.args["server"])
+            status = server.status().raw
+            return jsonify(status)
+        except OSError:
+            return jsonify({}), 502
 
 
 if __name__ == "__main__":

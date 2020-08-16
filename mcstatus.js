@@ -1,5 +1,5 @@
 function McStatus(parent, server) {
-    loadStatus(parent, server, insertMcStatus);
+    loadStatus(parent, server, handleStatus);
 }
 
 function loadStatus(parent, server, callback) {
@@ -8,8 +8,9 @@ function loadStatus(parent, server, callback) {
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            callback(parent, JSON.parse(this.responseText));
+        if (this.readyState == 4) {
+            console.log(this.responseText);
+            callback(parent, {"status": this.status, "result": JSON.parse(this.responseText)});
         }
     };
 
@@ -17,21 +18,118 @@ function loadStatus(parent, server, callback) {
     xhr.send();
 }
 
-function insertMcStatus(parent, status) {
-    var statusDiv = document.createElement("code");
-    statusDiv.appendChild(document.createTextNode(JSON.stringify(status)));
-    parent.appendChild(statusDiv);
+function mcDescriptionToHTML(descriptionRaw) {
+    const color_codes = {
+        "dark_red": "#be0000",
+        "red": "#fe3f3f",
+        "gold": "#D9A334",
+        "yellow": "#fefe3f",
+        "dark_green": "#00be00",
+        "green": "#3ffe3f",
+        "aqua": "#3ffefe",
+        "dark_aqua": "#00bebe",
+        "dark_blue": "#0000be",
+        "blue": "#3f3ffe",
+        "light_purple": "#fe3ffe",
+        "purple": "#be00be",
+
+        "white": "#ffffff",
+        "gray": "#bebebe",
+        "dark_gray": "#3f3f3f",
+        "black": "#000000",
+    };
+
+    var root = document.createElement("div");
+    root.classList.add("mc-description");
+
+    descriptionRaw.forEach(function(item, index) {
+        var chunk = document.createElement("span");
+        chunk.classList.add("mc-description-chunk");
+
+        if (item["bold"]) {
+            chunk.classList.add("mc-description-bold");
+        }
+        if (item["italic"]) {
+            chunk.classList.add("mc-description-italic");
+        }
+        if (item["obfuscated"]) {
+            chunk.classList.add("mc-description-obfuscated");
+        }
+        if (item["strikethrough"]) {
+            chunk.classList.add("mc-description-strikethrough");
+        }
+        if (item["underlined"]) {
+            chunk.classList.add("mc-description-underlined");
+        }
+
+        chunk.style.color = color_codes[item["color"]];
+
+        var textNode = document.createTextNode(item["text"]);
+        chunk.appendChild(textNode);
+
+        root.appendChild(chunk);
+    });
+
+    return root;
 }
 
-function makeHeader(title) {
-    var headerDiv = document.createElement("div");
+function mcPlayersToHTML(playersRaw) {
+    var root = document.createElement("div");
+    root.classList.add("mc-players");
 
-    var titleElm = document.createElement("h1");
-    titleElm.appendChild(document.createTextNode(title));
+    var count = document.createElement("p");
+    count.classList.add("mc-players-count");
+    count.appendChild(document.createTextNode("Players: " + playersRaw["online"] + "/" + playersRaw["max"]));
+    root.appendChild(count);
 
-    headerDiv.appendChild(titleElm);
+    var list = document.createElement("ul");
+    list.classList.add("mc-players-list");
 
-    return headerDiv;
+    if (playersRaw["online"] > 0) {
+        playersRaw["sample"].forEach(function(player, index) {
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(player["name"]));
+            list.appendChild(li);
+        });
+    }
+
+    root.appendChild(list);
+
+    return root;
+}
+
+function handleStatus(parent, result) {
+    var code = result["status"];
+    var status = result["result"];
+
+    var root = document.createElement("div");
+    root.classList.add("mc-status");
+
+    // MOTD:
+    var descriptionRaw = [{
+        "bold": true,
+        "color": "red",
+        "italic": false,
+        "obfuscated": false,
+        "strikethrough": false,
+        "text": "Server offline",
+        "underlined": false
+    }];
+
+    if (code == 200) {
+        descriptionRaw = status["description"]["extra"];
+    }
+    var description = mcDescriptionToHTML(descriptionRaw);
+    root.appendChild(description);
+
+    // Player Status:
+    if (code == 200) {
+        var playersRaw = status["players"];
+        var players = mcPlayersToHTML(playersRaw);
+        root.appendChild(players);
+    }
+
+    parent.appendChild(root);
 }
 
 window.onload = function() {
