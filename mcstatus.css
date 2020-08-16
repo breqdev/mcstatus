@@ -1,5 +1,7 @@
 .mc-status-root {
     display: inline-block;
+    background-color: #ffffff;
+    color: #000000;
 
     border-style: solid;
     border-width: 2px;
