@@ -3,7 +3,7 @@ function mcStatus(parent, server) {
 }
 
 function loadStatus(parent, server, callback) {
-    const apiEndpoint = "http://localhost:5000/status?server="
+    const apiEndpoint = "https://mc-status-relay.herokuapp.com/status?server="
 
     var xhr = new XMLHttpRequest();
 
