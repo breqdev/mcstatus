@@ -1,4 +1,4 @@
-function McStatus(parent, server) {
+function mcStatus(parent, server) {
     loadStatus(parent, server, handleStatus);
 }
 
@@ -103,7 +103,7 @@ function handleStatus(parent, result) {
     var status = result["result"];
 
     var root = document.createElement("div");
-    root.classList.add("mc-status");
+    root.classList.add("mc-status-root");
 
     // MOTD:
     var descriptionRaw = [{
@@ -133,7 +133,8 @@ function handleStatus(parent, result) {
 }
 
 window.onload = function() {
-    var demo = document.getElementById("demo");
-
-    McStatus(demo, "mc.breq.dev:16000");
+    var elements = document.getElementsByClassName("mc-status");
+    for (let element of elements) {
+        mcStatus(element, element.attributes.getNamedItem("data-mc-server").value);
+    }
 }
