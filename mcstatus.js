@@ -19,6 +19,20 @@ function loadStatus(parent, server, callback) {
 }
 
 function mcDescriptionToHTML(descriptionRaw) {
+    if (typeof descriptionRaw == "object") {
+        return mcExtraDescriptionToHTML(descriptionRaw["extra"]);
+    } else {
+        var root = document.createElement("div");
+        root.classList.add("mc-description");
+
+        description = descriptionRaw.replace(/\xa7./g, "");
+
+        root.appendChild(document.createTextNode(description));
+        return root;
+    }
+}
+
+function mcExtraDescriptionToHTML(descriptionRaw) {
     const color_codes = {
         "dark_red": "#be0000",
         "red": "#fe3f3f",
@@ -85,7 +99,7 @@ function mcPlayersToHTML(playersRaw) {
     var list = document.createElement("ul");
     list.classList.add("mc-players-list");
 
-    if (playersRaw["online"] > 0) {
+    if (playersRaw["online"] > 0 && playersRaw["sample"].length > 0) {
         playersRaw["sample"].forEach(function(player, index) {
             var li = document.createElement("li");
             li.appendChild(document.createTextNode(player["name"]));
@@ -106,7 +120,7 @@ function handleStatus(parent, result) {
     root.classList.add("mc-status-root");
 
     // MOTD:
-    var descriptionRaw = [{
+    var descriptionRaw = {"extra": [{
         "bold": true,
         "color": "red",
         "italic": false,
@@ -114,10 +128,10 @@ function handleStatus(parent, result) {
         "strikethrough": false,
         "text": "Server offline",
         "underlined": false
-    }];
+    }]};
 
     if (code == 200) {
-        descriptionRaw = status["description"]["extra"];
+        descriptionRaw = status["description"];
     }
     var description = mcDescriptionToHTML(descriptionRaw);
     root.appendChild(description);
