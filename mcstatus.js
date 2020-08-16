@@ -1,3 +1,16 @@
+function mcAddStylesheet() {
+    var head = document.getElementsByTagName("head")[0];
+
+    var style = document.createElement("link");
+    style.setAttribute("href", "mcstatus.css");
+    style.setAttribute("type", "text/css");
+    style.setAttribute("rel", "stylesheet");
+
+    head.appendChild(style);
+}
+
+mcAddStylesheet();
+
 function mcStatus(parent, server) {
     const apiEndpoint = "https://mc-status-relay.herokuapp.com/status?server="
 

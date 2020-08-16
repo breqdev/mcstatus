@@ -5,7 +5,6 @@ A JavaScript library to embed a Minecraft server status readout.
 Include the library:
 
 ```
-<link rel="stylesheet" href="mcstatus.css">
 <script type="text/javascript" src="mcstatus.js"></script>
 ```
 
