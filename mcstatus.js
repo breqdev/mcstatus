@@ -99,7 +99,7 @@ function mcPlayersToHTML(playersRaw) {
     var list = document.createElement("ul");
     list.classList.add("mc-players-list");
 
-    if (playersRaw["online"] > 0 && playersRaw["sample"].length > 0) {
+    if (playersRaw.hasOwnProperty("sample")) {
         playersRaw["sample"].forEach(function(player, index) {
             var li = document.createElement("li");
             li.appendChild(document.createTextNode(player["name"]));
