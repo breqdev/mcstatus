@@ -7,7 +7,7 @@ A JavaScript library to embed a Minecraft server status readout.
 Include the library:
 
 ```
-<script type="text/javascript" src="mcstatus.js"></script>
+<script type="text/javascript" src="https://breq16.github.io/mcstatus/mcstatus.js"></script>
 ```
 
 Then, in your document, create elements for embeds with:
