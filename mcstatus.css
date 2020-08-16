@@ -10,8 +10,10 @@
 }
 
 .mc-status-header {
+    color: inherit;
     font-family: monospace;
     font-size: 24px;
+
     padding: 10px;
     margin: 0;
 }
@@ -35,8 +37,8 @@
 }
 
 .mc-description-obfuscated {
-    color: #000;
-    background-color: #000;
+    color: #ffffff;
+    background-color: #ffffff;
 }
 
 .mc-description-strikethrough {
@@ -48,15 +50,18 @@
 }
 
 .mc-players {
+    color: inherit;
     padding: 10px;
     font-family: monospace;
 }
 
 .mc-players-count {
+    color: inherit;
     margin: 0;
 }
 
 .mc-players-list {
+    color: inherit;
     list-style-type: none;
     padding: 0;
     margin-left: 4ch;
@@ -64,5 +69,6 @@
 }
 
 .mc-players-list > li {
+    color: inherit;
     display: inline;
 }
