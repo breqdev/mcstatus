@@ -1,3 +1,7 @@
+.mc-status {
+    overflow: scroll;
+}
+
 .mc-status-root {
     display: inline-block;
     background-color: #ffffff;
@@ -21,6 +25,7 @@
 .mc-description {
     white-space: pre;
     font-family: monospace;
+    font-size: 18px;
     background-color: #000;
     color: #bebebe;
 
@@ -53,6 +58,7 @@
     color: inherit;
     padding: 10px;
     font-family: monospace;
+    font-size: 18px;
 }
 
 .mc-players-count {
