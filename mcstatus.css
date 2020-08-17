@@ -78,3 +78,11 @@
     color: inherit;
     display: inline;
 }
+
+.mc-players-list > li::after {
+    content: ", ";
+}
+
+.mc-players-list > li:last-child::after {
+    content: "";
+}
