@@ -12,7 +12,7 @@ function mcAddStylesheet() {
 mcAddStylesheet();
 
 function mcStatus(parent, server) {
-    const apiEndpoint = "http://mcstatus.breq.dev/status?server="
+    const apiEndpoint = "https://mcstatus.breq.dev/status?server="
 
     var xhr = new XMLHttpRequest();
 
