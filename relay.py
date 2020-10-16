@@ -47,10 +47,11 @@ def process_color_codes(raw_desc):
             if char != "§":
                 token += char
             else:
-                description.append({
-                    "text": token,
-                    **params
-                })
+                if token:
+                    description.append({
+                        "text": token,
+                        **params
+                    })
                 token = ""
 
                 code = next(desc_iter)
@@ -73,10 +74,11 @@ def process_color_codes(raw_desc):
     except StopIteration:
         pass
 
-    description.append({
-        "text": token,
-        **params
-    })
+    if token:
+        description.append({
+            "text": token,
+            **params
+        })
 
     return description
 
