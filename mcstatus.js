@@ -2,7 +2,7 @@ function mcAddStylesheet() {
     var head = document.getElementsByTagName("head")[0];
 
     var style = document.createElement("link");
-    style.setAttribute("href", "https://breq16.github.io/mcstatus/mcstatus.css");
+    style.setAttribute("href", "https://g.breq.dev/mcstatus/mcstatus.css");
     style.setAttribute("type", "text/css");
     style.setAttribute("rel", "stylesheet");
 
@@ -12,7 +12,7 @@ function mcAddStylesheet() {
 mcAddStylesheet();
 
 function mcStatus(parent, server) {
-    const apiEndpoint = "https://mc-status-relay.herokuapp.com/status?server="
+    const apiEndpoint = "http://mcstatus.breq.dev/status?server="
 
     var xhr = new XMLHttpRequest();
 
@@ -28,20 +28,6 @@ function mcStatus(parent, server) {
 }
 
 function mcDescriptionToHTML(descriptionRaw) {
-    if (typeof descriptionRaw == "object") {
-        return mcExtraDescriptionToHTML(descriptionRaw["extra"]);
-    } else {
-        var root = document.createElement("div");
-        root.classList.add("mc-description");
-
-        description = descriptionRaw.replace(/\xa7./g, "");
-
-        root.appendChild(document.createTextNode(description));
-        return root;
-    }
-}
-
-function mcExtraDescriptionToHTML(descriptionRaw) {
     const color_codes = {
         "dark_red": "#be0000",
         "red": "#fe3f3f",
@@ -132,7 +118,7 @@ function mcHandleStatus(parent, server, code, status) {
     root.appendChild(header);
 
     // MOTD:
-    var descriptionRaw = {"extra": [{
+    var descriptionRaw = [{
         "bold": true,
         "color": "red",
         "italic": false,
@@ -140,7 +126,7 @@ function mcHandleStatus(parent, server, code, status) {
         "strikethrough": false,
         "text": "Server offline",
         "underlined": false
-    }]};
+    }];
 
     if (code == 200) {
         descriptionRaw = status["description"];
