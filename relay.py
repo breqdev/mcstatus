@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, redirect
 from flask_cors import CORS, cross_origin
 
 from mcstatus import MinecraftServer
@@ -102,7 +102,7 @@ def status():
 
 @app.route("/")
 def index():
-    return send_file("index.html")
+    return redirect("https://breq.dev/showcase/mcstatus/")
 
 
 @app.route("/mcstatus.css")

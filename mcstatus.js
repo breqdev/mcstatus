@@ -2,7 +2,7 @@ function mcAddStylesheet() {
     var head = document.getElementsByTagName("head")[0];
 
     var style = document.createElement("link");
-    style.setAttribute("href", "https://g.breq.dev/mcstatus/mcstatus.css");
+    style.setAttribute("href", "https://github.breq.dev/mcstatus/mcstatus.css");
     style.setAttribute("type", "text/css");
     style.setAttribute("rel", "stylesheet");
 
