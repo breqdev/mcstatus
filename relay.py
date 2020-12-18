@@ -102,7 +102,7 @@ def status():
 
 @app.route("/")
 def index():
-    return redirect("https://breq.dev/showcase/mcstatus/")
+    return redirect("https://breq.dev/apps/mcstatus/")
 
 
 @app.route("/mcstatus.css")
