@@ -97,7 +97,7 @@ def status():
             }
             return jsonify(status)
         except OSError:
-            return jsonify({}), 502
+            return jsonify({}), 404
 
 
 @app.route("/")
