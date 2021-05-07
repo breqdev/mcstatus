@@ -1,6 +1,6 @@
 # McStatus
 
-**Live demo at [breq16.github.io/mcstatus](https://breq16.github.io/mcstatus/)!**
+**Live demo at [breq.dev/apps/mcstatus](https://breq.dev/apps/mcstatus/)!**
 
 A JavaScript library to embed a Minecraft server status readout.
 
