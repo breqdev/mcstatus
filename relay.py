@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, send_file, redirect
 from flask_cors import CORS, cross_origin
 
-from mcstatus import MinecraftServer
+from mcstatus import JavaServer
 
 app = Flask(__name__)
 CORS(app)
@@ -23,7 +23,7 @@ color_codes = {
     "f": "white",
     "7": "gray",
     "8": "dark_gray",
-    "0": "black"
+    "0": "black",
 }
 
 
@@ -36,9 +36,7 @@ def process_color_codes(raw_desc):
     description = []
 
     token = ""
-    params = {
-        "color": "default"
-    }
+    params = {"color": "default"}
 
     desc_iter = iter(raw_desc)
     try:
@@ -48,10 +46,7 @@ def process_color_codes(raw_desc):
                 token += char
             else:
                 if token:
-                    description.append({
-                        "text": token,
-                        **params
-                    })
+                    description.append({"text": token, **params})
                 token = ""
 
                 code = next(desc_iter)
@@ -75,10 +70,7 @@ def process_color_codes(raw_desc):
         pass
 
     if token:
-        description.append({
-            "text": token,
-            **params
-        })
+        description.append({"text": token, **params})
 
     return description
 
@@ -88,12 +80,12 @@ def process_color_codes(raw_desc):
 def status():
     if request.args.get("server"):
         try:
-            server = MinecraftServer.lookup(request.args["server"])
+            server = JavaServer.lookup(request.args["server"])
             raw_status = server.status().raw
 
             status = {
                 "description": process_color_codes(raw_status["description"]),
-                "players": raw_status["players"]
+                "players": raw_status["players"],
             }
             return jsonify(status)
         except OSError:
@@ -102,7 +94,7 @@ def status():
 
 @app.route("/")
 def index():
-    return redirect("https://breq.dev/apps/mcstatus/")
+    return redirect("https://breq.dev/apps/mcstatus.html")
 
 
 @app.route("/mcstatus.css")
