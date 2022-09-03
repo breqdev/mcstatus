@@ -24,4 +24,4 @@ The status protocol for Minecraft servers uses raw TCP sockets, so a pure-JS ser
 
 I'm using Dinnerbone's awesome [Server Pinger](https://github.com/Dinnerbone/mcstatus) under the hood on the relay.
 
-To change the style of the embed, just add a stylesheet that overrides the styles at [mcstatus.css](https://github.com/Breq16/mcstatus/blob/master/mcstatus.css).
+To change the style of the embed, just add a stylesheet that overrides the styles at [mcstatus.css](https://github.com/breqdev/mcstatus/blob/master/mcstatus.css).
